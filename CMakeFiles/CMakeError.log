@@ -1,0 +1,57 @@
+Performing C SOURCE FILE Test Iconv_IS_BUILT_IN failed with the following output:
+Change Dir: /Users/zhangyilei/Downloads/Exiv2/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_0b71f/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_0b71f.dir/build.make CMakeFiles/cmTC_0b71f.dir/build
+Building C object CMakeFiles/cmTC_0b71f.dir/src.c.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc   -DIconv_IS_BUILT_IN -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk   -o CMakeFiles/cmTC_0b71f.dir/src.c.o   -c /Users/zhangyilei/Downloads/Exiv2/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_0b71f
+/usr/local/Cellar/cmake/3.12.0/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0b71f.dir/link.txt --verbose=1
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  -DIconv_IS_BUILT_IN -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_0b71f.dir/src.c.o  -o cmTC_0b71f 
+Undefined symbols for architecture x86_64:
+  "_iconv", referenced from:
+      _main in src.c.o
+  "_iconv_close", referenced from:
+      _main in src.c.o
+  "_iconv_open", referenced from:
+      _main in src.c.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: *** [cmTC_0b71f] Error 1
+make: *** [cmTC_0b71f/fast] Error 2
+
+Source file was:
+
+      #include <stddef.h>
+      #include <iconv.h>
+      int main() {
+        char *a, *b;
+        size_t i, j;
+        iconv_t ic;
+        ic = iconv_open("to", "from");
+        iconv(ic, &a, &i, &b, &j);
+        iconv_close(ic);
+      }
+      
+Performing C++ SOURCE FILE Test EXV_STRERROR_R_CHAR_P failed with the following output:
+Change Dir: /Users/zhangyilei/Downloads/Exiv2/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_730c6/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_730c6.dir/build.make CMakeFiles/cmTC_730c6.dir/build
+Building CXX object CMakeFiles/cmTC_730c6.dir/src.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++    -DEXV_STRERROR_R_CHAR_P -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk   -o CMakeFiles/cmTC_730c6.dir/src.cxx.o -c /Users/zhangyilei/Downloads/Exiv2/CMakeFiles/CMakeTmp/src.cxx
+/Users/zhangyilei/Downloads/Exiv2/CMakeFiles/CMakeTmp/src.cxx:5:17: error: cannot initialize a variable of type 'const char *' with an rvalue of type 'int'
+    const char* c = strerror_r(0,buff,100);
+                ^   ~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+make[1]: *** [CMakeFiles/cmTC_730c6.dir/src.cxx.o] Error 1
+make: *** [cmTC_730c6/fast] Error 2
+
+Source file was:
+
+#include <string.h>
+int main() {
+    char buff[100];
+    const char* c = strerror_r(0,buff,100);
+    return 0;
+}

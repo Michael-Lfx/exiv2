@@ -46,7 +46,11 @@
 #if defined(_MSC_VER)
 #define S_ISREG(m)      (((m) & S_IFMT) == S_IFREG)
 #elif defined(__APPLE__)
-#include <libproc.h>
+#    include <TargetConditionals.h>
+#    if TARGET_OS_IPHONE
+#    elif TARGET_OS_MAC
+#        include <libproc.h>
+#    endif
 #endif
 
 #if defined(__FreeBSD__)
@@ -482,10 +486,13 @@ namespace Exiv2 {
         }
     #elif defined(__APPLE__)
         const int pid = getpid();
+    #    if TARGET_OS_IPHONE
+    #    elif TARGET_OS_MAC
         char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
         if (proc_pidpath (pid, pathbuf, sizeof(pathbuf)) > 0) {
             ret = pathbuf;
         }
+    #    endif
     #elif defined(__FreeBSD__)
         unsigned int       n;
         char               buffer[PATH_MAX] = {};
